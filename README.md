@@ -60,6 +60,21 @@ result := sum(nums...)
 
 
 
+#### var _ io.Closer = (*Client)(nil)
+
+这段代码是在 Go 语言中进行接口断言（interface assertion）的一种常见用法。让我来解释每个部分的含义：
+
+1. **`io.Closer`：** 这是一个接口类型，它包含了 `Close` 方法，用于释放资源或执行清理工作。
+2. **`var _ io.Closer = (*Client)(nil)`：**
+   - `var` 关键字用于声明一个变量。
+   - `_`（下划线）是一个特殊的标识符，用于占位，表示不关心这个变量的值。
+   - `io.Closer` 表明声明的变量的类型是 `io.Closer` 接口。
+   - `= (*Client)(nil)` 表示将一个 `nil` 值的 `*Client` 类型的指针赋给这个变量。
+
+这段代码的目的是确保 `*Client` 类型实现了 `io.Closer` 接口。如果 `*Client` 类型正确实现了 `Close` 方法，那么它就被认为是 `io.Closer` 接口的实现。这种用法通常在编译时进行接口实现的检查，以确保代码的正确性。
+
+
+
 ## 错误及解决
 
 
