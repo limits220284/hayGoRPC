@@ -32,7 +32,7 @@ func (t *T) MethodName(argType T1, replyType *T2) error
 - **可变参数（Variadic Parameters）：** 在函数声明中，`...` 可以用于指定可变数量的参数。这样的参数被视为一个切片。例如：
 
 ```go
-goCopy codefunc exampleFunction(args ...int) {
+func exampleFunction(args ...int) {
     // args 是一个 int 切片
     // 可以通过 args[index] 访问每个参数
 }
@@ -41,14 +41,14 @@ goCopy codefunc exampleFunction(args ...int) {
 调用这个函数时，可以传递任意数量的整数：
 
 ```go
-goCopy codeexampleFunction(1, 2, 3)
+exampleFunction(1, 2, 3)
 exampleFunction(4, 5, 6, 7, 8)
 ```
 
 - **切片的展开（Slice Unpacking）：** 在函数调用时，`...` 可以用于展开切片，将切片的元素作为单独的参数传递给函数。例如：
 
 ```go
-goCopy codenums := []int{1, 2, 3}
+nums := []int{1, 2, 3}
 result := sum(nums...)
 ```
 
