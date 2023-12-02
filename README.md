@@ -25,6 +25,50 @@
 func (t *T) MethodName(argType T1, replyType *T2) error
 ```
 
+通过反射，我们能够非常容易地获取某个结构体的所有方法，并且能够通过方法，获取到该方法所有的参数类型与返回值。例如：
+
+```go
+func main() {
+	var wg sync.WaitGroup
+	typ := reflect.TypeOf(&wg)
+	for i := 0; i < typ.NumMethod(); i++ {
+		method := typ.Method(i)
+		argv := make([]string, 0, method.Type.NumIn())
+		returns := make([]string, 0, method.Type.NumOut())
+		// j 从 1 开始，第 0 个入参是 wg 自己。
+		for j := 1; j < method.Type.NumIn(); j++ {
+			argv = append(argv, method.Type.In(j).Name())
+		}
+		for j := 0; j < method.Type.NumOut(); j++ {
+			returns = append(returns, method.Type.Out(j).Name())
+		}
+		log.Printf("func (w *%s) %s(%s) %s",
+			typ.Elem().Name(),
+			method.Name,
+			strings.Join(argv, ","),
+			strings.Join(returns, ","))
+    }
+}
+```
+
+运行的结果是：
+
+```go
+func (w *WaitGroup) Add(int)
+func (w *WaitGroup) Done()
+func (w *WaitGroup) Wait()
+```
+
+
+
+
+
+
+
+
+
+
+
 
 
 #### 在 Go 语言中，`...`（三个点）有两个主要的用法，它们分别是可变参数和切片的展开。
