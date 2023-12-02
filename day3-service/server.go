@@ -159,8 +159,6 @@ func (server *Server) readRequest(cc codec.Codec) (*request, error) {
 }
 
 func (server *Server) handleRequest(cc codec.Codec, req *request, sending *sync.Mutex, wg *sync.WaitGroup) {
-	// TODO, should call registered rpc methods to get the right replyv
-	// day1, just print argv and send a hello message
 	defer wg.Done()
 	err := req.svc.call(req.mtype, req.argv, req.replyv)
 	if err != nil {
@@ -201,4 +199,6 @@ func (server *Server) findService(serviceMethod string) (svc *service, mtype *me
 }
 
 // Register publishes the receiver's methods in the DefaultServer.
-func Register(rcvr interface{}) error { return DefaultServer.Register(rcvr) }
+func Register(rcvr interface{}) error {
+	return DefaultServer.Register(rcvr)
+}
