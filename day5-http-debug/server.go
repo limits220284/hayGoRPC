@@ -15,11 +15,11 @@ import (
 	"time"
 )
 
-const MagicNumber = 0x3bef5c
 const (
 	connected        = "200 Connected to Gee RPC"
 	defaultRPCPath   = "/_geerpc_"
 	defaultDebugPath = "/debug/geerpc"
+	MagicNumber      = 0x3bef5c
 )
 
 type (
@@ -43,19 +43,19 @@ type (
 	}
 )
 
-var DefaultOption = &Option{
-	MagicNumber:    MagicNumber,
-	CodecType:      codec.GobType,
-	ConnectTimeout: time.Second * 10,
-}
-
 // invalidRequest is a placeholder for response argv when error occurs
 
-var invalidRequest = struct{}{}
+var (
+	invalidRequest = struct{}{}
+	DefaultServer  = NewServer()
+	DefaultOption  = &Option{
+		MagicNumber:    MagicNumber,
+		CodecType:      codec.GobType,
+		ConnectTimeout: time.Second * 10,
+	}
+)
 
 // DefaultServer is the default instance of *Server
-
-var DefaultServer = NewServer()
 
 // NewServer returns a new Server
 // 构造函数
