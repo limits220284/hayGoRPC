@@ -69,7 +69,7 @@ func (r *GeeRegistry) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	switch req.Method {
 	case "GET":
 		//keep it simple, server is in req.Header
-		w.Header().Set("X-Geerpc-Server", strings.Join(r.aliveServers(), ","))
+		w.Header().Set("X-Geerpc-Servers", strings.Join(r.aliveServers(), ","))
 	case "POST":
 		addr := req.Header.Get("X-Geerpc-Server")
 		if addr == "" {
